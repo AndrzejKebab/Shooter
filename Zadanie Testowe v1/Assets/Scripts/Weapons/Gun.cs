@@ -1,6 +1,4 @@
-using Unity.Burst.CompilerServices;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class Gun : MonoBehaviour
 {
@@ -14,14 +12,13 @@ public class Gun : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
 		weaponBase.Shoot();
 	}
 
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Vector3 direction = firePoint.transform.TransformDirection(Vector3.forward) * 5;
+		//Vector3 direction = firePoint.transform.TransformDirection(Vector3.forward) * 5;
 		Gizmos.DrawLine(firePoint.transform.position, weaponBase.hit.point);
 	}
 }

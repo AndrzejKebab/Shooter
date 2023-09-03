@@ -12,6 +12,7 @@ public class ObjectBase : MonoBehaviour
 	private TextMeshProUGUI materialTypeText;
 	[SerializeField] private short maxHealth;
 	[SerializeField] private DamagableMaterial material;
+	public DamagableMaterial Material { get { return material; } private set { } }
 	[SerializeField] private OnDestroyFunction test;
 
 	// Start is called before the first frame update

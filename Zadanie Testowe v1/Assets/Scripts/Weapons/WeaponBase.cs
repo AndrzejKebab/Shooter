@@ -18,14 +18,13 @@ public abstract class WeaponBase : ScriptableObject
 	[Header("Bullet")]
 	public GameObject bulletPrefab;
 	public Transform firePoint;
-	//public Transform FirePoint { get { return firePoint; } set { firePoint = value; } }
 	public float bulletForce = 20;
 	public float bulletLifeTime = 2f;
 
 	Ray ray;
 	public RaycastHit hit;
 
-	public void Shoot()
+	public virtual void Shoot()
 	{
 		ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
@@ -42,11 +41,11 @@ public abstract class WeaponBase : ScriptableObject
 
 	public virtual void Fire()
 	{
-		Debug.Log("Fire");
 		if (timeBtwShoots <= 0 && InputManager.instance.GetFirePressed())
 		{
-			Debug.Log("theBullet");
-			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation.normalized) ;
+			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation.normalized);
+			bullet.GetComponentInChildren<Bullet>().Damage = Damage;
+			bullet.GetComponentInChildren<Bullet>().DamagableMaterial = Material;
 			Rigidbody bulletRB = bullet.GetComponentInChildren<Rigidbody>();
 			bulletRB.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
 			Destroy(bullet, bulletLifeTime);

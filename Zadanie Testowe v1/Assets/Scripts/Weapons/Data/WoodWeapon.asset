@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fef264fad50d104389f7ad21e6e3076, type: 3}
   m_Name: WoodWeapon
   m_EditorClassIdentifier: 
-  Damage: 2
+  Damage: 5
   FireRate: 2
   Material: 0
   bulletPrefab: {fileID: 4240213031997535971, guid: c116f241a1d284f42bf2d121ccdd52d8,
