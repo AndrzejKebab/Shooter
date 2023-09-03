@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +7,7 @@ public class InputManager : MonoBehaviour
 	private float fire;
 	private Vector2 cursorPos;
 	private Vector2 movement;
+	private bool jumpPressed = false;
 
 	public static InputManager instance { get; private set; }
 
@@ -38,6 +36,18 @@ public class InputManager : MonoBehaviour
 		fire = ctx.ReadValue<float>();
 	}
 
+	public void Jump(InputAction.CallbackContext context)
+	{
+		if (context.performed)
+		{
+			jumpPressed = true;
+		}
+		else if (context.canceled)
+		{
+			jumpPressed = false;
+		}
+	}
+
 	public Vector2 GetMovement()
 	{
 		return movement;
@@ -46,5 +56,22 @@ public class InputManager : MonoBehaviour
 	public Vector2 GetMousePos()
 	{
 		return cursorPos;
+	}
+
+	public bool GetJumpPressed()
+	{
+		return jumpPressed;
+	}
+
+	public bool GetFirePressed()
+	{
+		if(fire == 1)
+		{
+			return true;
+		}
+		else 
+		{ 
+			return false;
+		}
 	}
 }
