@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 	private byte damage;
-	public byte Damage {  get { return damage; } set { damage = value; } }
+	public byte Damage { get { return damage; } set { damage = value; } }
 	public DamagableMaterial DamagableMaterial;
 
 	private void OnCollisionEnter(Collision other)

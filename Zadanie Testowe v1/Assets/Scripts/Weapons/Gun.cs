@@ -4,8 +4,10 @@ public class Gun : MonoBehaviour
 {
 	[SerializeField] private WeaponBase weaponBase;
 	[SerializeField] private Transform firePoint;
-	void Start()
+
+	private void Awake()
 	{
+		firePoint = GameObject.Find($"{transform.name}/GunHands/GunBase/FirePoint").GetComponent<Transform>();
 		weaponBase.firePoint = firePoint;
 	}
 
