@@ -13,6 +13,7 @@ public enum DamagableMaterial
 public class WeaponBase : ScriptableObject
 {
 	[Header("Weapon")]
+	[HideInInspector] public string weaponName;
 	public byte Damage;
 	public byte MagazineSize;
 	private byte bulletsInMagazine;
@@ -29,25 +30,26 @@ public class WeaponBase : ScriptableObject
 
 	private Ray ray;
 	public RaycastHit hit;
-	private TextMeshProUGUI weaponName;
-	private TextMeshProUGUI weaponDamagableMaterial;
-	private TextMeshProUGUI weaponAmmo;
+	private TextMeshProUGUI weaponNameText;
+	private TextMeshProUGUI weaponDamagableMaterialText;
+	private TextMeshProUGUI weaponAmmoText;
 
-	public void Setup(Transform _firepoint, Animator _animator)
+	public void Setup(Transform _firepoint, Animator _animator, string _weaponName)
 	{
 		bulletsInMagazine = MagazineSize;
 		animator = _animator;
 		firePoint = _firepoint;
-		weaponName = GameObject.Find("WeaponName").GetComponent<TextMeshProUGUI>();
-		weaponDamagableMaterial = GameObject.Find("DamagableMaterial").GetComponent<TextMeshProUGUI>();
-		weaponAmmo = GameObject.Find("Ammo").GetComponent<TextMeshProUGUI>();
+		weaponName = _weaponName;
+		weaponNameText = GameObject.Find("WeaponName").GetComponent<TextMeshProUGUI>();
+		weaponDamagableMaterialText = GameObject.Find("DamagableMaterial").GetComponent<TextMeshProUGUI>();
+		weaponAmmoText = GameObject.Find("Ammo").GetComponent<TextMeshProUGUI>();
 	}
 
-	public void OnWeaponSelected()
+	public void UpdateWeaponText()
 	{
-		weaponName.text = name;
-		weaponDamagableMaterial.text = $"{Material}";
-		weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
+		weaponNameText.text = weaponName;
+		weaponDamagableMaterialText.text = $"{Material}";
+		weaponAmmoText.text = $"Ammo: {bulletsInMagazine} / {MagazineSize}";
 	}
 
 	public void Aim()
@@ -70,7 +72,6 @@ public class WeaponBase : ScriptableObject
 	{
 		if (timeBtwShoots <= 0 && InputManager.instance.GetFirePressed() && bulletsInMagazine > 0)
 		{
-			Debug.Log("Fire");
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation.normalized);
 			animator.Play("Fire");
 			bullet.GetComponentInChildren<Bullet>().Damage = Damage;
@@ -80,7 +81,7 @@ public class WeaponBase : ScriptableObject
 			Destroy(bullet, bulletLifeTime);
 			timeBtwShoots = 1 / FireRate;
 			bulletsInMagazine -= 1;
-			weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
+			UpdateWeaponText();
 		}
 		else
 		{
@@ -106,6 +107,6 @@ public class WeaponBase : ScriptableObject
 	public void SetAmmo()
 	{
 		bulletsInMagazine = MagazineSize;
-		weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
+		UpdateWeaponText();
 	}
 }

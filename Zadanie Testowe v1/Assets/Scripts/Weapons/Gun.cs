@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		weaponBase.Setup(firePoint, animator);
+		weaponBase.Setup(firePoint, animator, gameObject.name);
 	}
 
 	// Update is called once per frame
@@ -23,9 +23,9 @@ public class Gun : MonoBehaviour
 		}
 	}
 
-	public void OnWeaponSelect()
+	public void OnWeaponSelected()
 	{
-		weaponBase.OnWeaponSelected();
+		weaponBase.UpdateWeaponText();
 	}
 
 	public void ReloadEnd()
