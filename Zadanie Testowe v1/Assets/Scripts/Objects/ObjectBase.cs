@@ -15,8 +15,8 @@ public class ObjectBase : MonoBehaviour
 	[Tooltip("Object max health.")]
 	[SerializeField] private short maxHealth;
 	[Tooltip("Material that object is made from.")]
-	[SerializeField] private DamagableMaterial material;
-	public DamagableMaterial Material { get { return material; } private set { } }
+	[SerializeField] private PhysicMaterial physicMaterial;
+	public PhysicMaterial PhysicMaterial { get { return physicMaterial; } private set { } }
 	[Tooltip("Function that will happen when object is destroyed.")]
 	[SerializeField] private OnDestroyFunction onDestroyFunction;
 
@@ -32,7 +32,7 @@ public class ObjectBase : MonoBehaviour
 		healthBarText = GameObject.Find($"{gameObject.name}/Canvas/Panel/HPBar/HPText").GetComponent<TextMeshProUGUI>();
 		healthBarText.text = $"{health} / {maxHealth}";
 		materialTypeText = GetComponentInChildren<TextMeshProUGUI>();
-		materialTypeText.text = $"Material Type: <br>{material}";
+		materialTypeText.text = $"Material Type: <br>{physicMaterial}";
 	}
 
 	// Update is called once per frame

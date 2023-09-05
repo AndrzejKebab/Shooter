@@ -2,7 +2,7 @@ using TMPro;
 using UnityEditor.Build.Content;
 using UnityEngine;
 
-public enum DamagableMaterial
+public enum PhysicMaterial
 {
 	Wood = 0,
 	Stone = 1,
@@ -19,7 +19,7 @@ public class WeaponBase : ScriptableObject
 	private byte bulletsInMagazine;
 	public float FireRate;
 	private float timeBtwShoots = 0;
-	public DamagableMaterial Material;
+	public PhysicMaterial DamageableMaterial;
 	[HideInInspector] public Animator animator;
 
 	[Header("Bullet")]
@@ -31,7 +31,7 @@ public class WeaponBase : ScriptableObject
 	private Ray ray;
 	public RaycastHit hit;
 	private TextMeshProUGUI weaponNameText;
-	private TextMeshProUGUI weaponDamagableMaterialText;
+	private TextMeshProUGUI weaponDamageableMaterialText;
 	private TextMeshProUGUI weaponAmmoText;
 
 	public void Setup(Transform _firepoint, Animator _animator, string _weaponName)
@@ -41,14 +41,14 @@ public class WeaponBase : ScriptableObject
 		firePoint = _firepoint;
 		weaponName = _weaponName;
 		weaponNameText = GameObject.Find("WeaponName").GetComponent<TextMeshProUGUI>();
-		weaponDamagableMaterialText = GameObject.Find("DamagableMaterial").GetComponent<TextMeshProUGUI>();
+		weaponDamageableMaterialText = GameObject.Find("DamageableMaterial").GetComponent<TextMeshProUGUI>();
 		weaponAmmoText = GameObject.Find("Ammo").GetComponent<TextMeshProUGUI>();
 	}
 
 	public void UpdateWeaponText()
 	{
 		weaponNameText.text = weaponName;
-		weaponDamagableMaterialText.text = $"{Material}";
+		weaponDamageableMaterialText.text = $"Damageable Material: {DamageableMaterial}";
 		weaponAmmoText.text = $"Ammo: {bulletsInMagazine} / {MagazineSize}";
 	}
 
@@ -75,7 +75,7 @@ public class WeaponBase : ScriptableObject
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation.normalized);
 			animator.Play("Fire");
 			bullet.GetComponentInChildren<Bullet>().Damage = Damage;
-			bullet.GetComponentInChildren<Bullet>().DamagableMaterial = Material;
+			bullet.GetComponentInChildren<Bullet>().DamageableMaterial = DamageableMaterial;
 			Rigidbody bulletRB = bullet.GetComponentInChildren<Rigidbody>();
 			bulletRB.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
 			Destroy(bullet, bulletLifeTime);

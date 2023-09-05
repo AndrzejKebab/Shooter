@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df81e734cba1a7849a2e502907eb6d68, type: 3}
   m_Name: WeaponSteel
   m_EditorClassIdentifier: 
+  weaponName: AR
   Damage: 5
   MagazineSize: 31
   FireRate: 20
-  Material: 2
+  DamageableMaterial: 2
   animator: {fileID: 0}
   bulletPrefab: {fileID: 4240213031997535971, guid: c116f241a1d284f42bf2d121ccdd52d8,
     type: 3}
