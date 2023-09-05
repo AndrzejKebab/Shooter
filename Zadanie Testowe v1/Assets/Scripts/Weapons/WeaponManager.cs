@@ -53,6 +53,7 @@ public class WeaponManager : MonoBehaviour
 		for (byte i = 0; i < weapons.Length; i++)
 		{
 			weapons[i].SetActive(i == indexWeapon);
+			weapons[i].GetComponent<Gun>().OnWeaponSelect();
 		}
 
 		lastWeaponSwitchTime = 0;

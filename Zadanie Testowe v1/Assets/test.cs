@@ -1,33 +1,35 @@
 using System.Collections;
 using UnityEngine;
 
-public class DoorFunction : OnDestroyFunction
+public class test : MonoBehaviour
 {
-	[SerializeField] private GameObject Door;
 	private Material material;
 	private float time;
 
-	private void Start()
+	// Start is called before the first frame update
+	void Start()
 	{
-		material = Door.GetComponent<MeshRenderer>().sharedMaterial;
+		material = GetComponent<MeshRenderer>().sharedMaterial;
 		material.SetFloat("_Fade", -0.1f);
 	}
 
-	public override void Destroy()
+	// Update is called once per frame
+	void Update()
 	{
-		StartCoroutine(Fade());
+		if(Input.GetKeyDown(KeyCode.G))
+		{
+			StartCoroutine(Fade());
+		}
 	}
 
 	private IEnumerator Fade()
 	{
-		while (time <= 1)
+		while(time <= 1)
 		{
 			time += 0.01f;
 			material.SetFloat("_Fade", time);
 			yield return null;
 		}
-		Door.SetActive(false);
-		Destroy(this.gameObject);
 	}
 
 	private void OnDestroy()

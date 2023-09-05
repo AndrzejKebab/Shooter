@@ -1,3 +1,5 @@
+using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public enum DamagableMaterial
@@ -7,24 +9,48 @@ public enum DamagableMaterial
 	Steel = 2
 }
 
-public abstract class WeaponBase : ScriptableObject
+[CreateAssetMenu(fileName = "New Weapon", menuName = "Weapons")]
+public class WeaponBase : ScriptableObject
 {
 	[Header("Weapon")]
 	public byte Damage;
+	public byte MagazineSize;
+	private byte bulletsInMagazine;
 	public float FireRate;
 	private float timeBtwShoots = 0;
 	public DamagableMaterial Material;
+	[HideInInspector] public Animator animator;
 
 	[Header("Bullet")]
 	public GameObject bulletPrefab;
-	public Transform firePoint;
+	[HideInInspector] public Transform firePoint;
 	public float bulletForce = 20;
 	public float bulletLifeTime = 2f;
 
-	Ray ray;
+	private Ray ray;
 	public RaycastHit hit;
+	private TextMeshProUGUI weaponName;
+	private TextMeshProUGUI weaponDamagableMaterial;
+	private TextMeshProUGUI weaponAmmo;
 
-	public virtual void Shoot()
+	public void Setup(Transform _firepoint, Animator _animator)
+	{
+		bulletsInMagazine = MagazineSize;
+		animator = _animator;
+		firePoint = _firepoint;
+		weaponName = GameObject.Find("WeaponName").GetComponent<TextMeshProUGUI>();
+		weaponDamagableMaterial = GameObject.Find("DamagableMaterial").GetComponent<TextMeshProUGUI>();
+		weaponAmmo = GameObject.Find("Ammo").GetComponent<TextMeshProUGUI>();
+	}
+
+	public void OnWeaponSelected()
+	{
+		weaponName.text = name;
+		weaponDamagableMaterial.text = $"{Material}";
+		weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
+	}
+
+	public void Aim()
 	{
 		ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
 
@@ -36,24 +62,50 @@ public abstract class WeaponBase : ScriptableObject
 		{
 			firePoint.LookAt(firePoint.position + firePoint.forward);
 		}
+
 		Fire();
 	}
 
-	public virtual void Fire()
+	public void Fire()
 	{
-		if (timeBtwShoots <= 0 && InputManager.instance.GetFirePressed())
+		if (timeBtwShoots <= 0 && InputManager.instance.GetFirePressed() && bulletsInMagazine > 0)
 		{
+			Debug.Log("Fire");
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation.normalized);
+			animator.Play("Fire");
 			bullet.GetComponentInChildren<Bullet>().Damage = Damage;
 			bullet.GetComponentInChildren<Bullet>().DamagableMaterial = Material;
 			Rigidbody bulletRB = bullet.GetComponentInChildren<Rigidbody>();
 			bulletRB.AddForce(firePoint.forward * bulletForce, ForceMode.Impulse);
 			Destroy(bullet, bulletLifeTime);
-			timeBtwShoots = 1 / FireRate;			
+			timeBtwShoots = 1 / FireRate;
+			bulletsInMagazine -= 1;
+			weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
 		}
 		else
 		{
 			timeBtwShoots -= Time.deltaTime;
 		}
+	}
+
+	public void Reload()
+	{
+		if (bulletsInMagazine == MagazineSize) return;
+
+		if(bulletsInMagazine > 0)
+		{
+			animator.Play("Reload");
+		}
+		else if(bulletsInMagazine == 0)
+		{
+			animator.Play("ReloadNoAmmo");
+		}
+
+	}
+
+	public void SetAmmo()
+	{
+		bulletsInMagazine = MagazineSize;
+		weaponAmmo.text = $"{bulletsInMagazine} / {MagazineSize}";
 	}
 }

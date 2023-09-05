@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class FuctionTest : OnDestroyFunction
 {
-	public GameObject spawn;
+	[SerializeField] private GameObject nextTarget;
 
 	public override void Destroy()
 	{
-		Instantiate(spawn,Vector3.up, Quaternion.identity);
+		nextTarget.SetActive(true);
+		Destroy(this.gameObject);
 	}
 }

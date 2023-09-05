@@ -10,10 +10,15 @@ public class ObjectBase : MonoBehaviour
 	private Slider healthBar;
 	private TextMeshProUGUI healthBarText;
 	private TextMeshProUGUI materialTypeText;
+
+	[Header("Stats")]
+	[Tooltip("Object max health.")]
 	[SerializeField] private short maxHealth;
+	[Tooltip("Material that object is made from.")]
 	[SerializeField] private DamagableMaterial material;
 	public DamagableMaterial Material { get { return material; } private set { } }
-	[SerializeField] private OnDestroyFunction test;
+	[Tooltip("Function that will happen when object is destroyed.")]
+	[SerializeField] private OnDestroyFunction onDestroyFunction;
 
 	// Start is called before the first frame update
 	void Start()
@@ -33,17 +38,12 @@ public class ObjectBase : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			TakeDamage(5);
-		}
-
 		_statsCanvas.transform.LookAt(_statsCanvas.position + _camera.rotation * Vector3.forward, _camera.rotation * Vector3.up );
 	}
 
-	public void ObjectDestroy()
+	public void OnObjectDestroy()
 	{
-		test.Destroy();
+		onDestroyFunction.Destroy();
 	}
 
 	public void TakeDamage(byte damage)
@@ -56,7 +56,7 @@ public class ObjectBase : MonoBehaviour
 
 		if (health <= 0)
 		{
-			ObjectDestroy();
+			OnObjectDestroy();
 		}
 	}
 }

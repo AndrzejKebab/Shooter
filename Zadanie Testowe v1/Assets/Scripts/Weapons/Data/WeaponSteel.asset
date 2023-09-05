@@ -9,14 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fef264fad50d104389f7ad21e6e3076, type: 3}
-  m_Name: SteelWeapon
+  m_Script: {fileID: 11500000, guid: df81e734cba1a7849a2e502907eb6d68, type: 3}
+  m_Name: WeaponSteel
   m_EditorClassIdentifier: 
-  Damage: 1
+  Damage: 5
+  MagazineSize: 31
   FireRate: 20
   Material: 2
-  weaponHandlePoint: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  animator: {fileID: 0}
+  bulletPrefab: {fileID: 4240213031997535971, guid: c116f241a1d284f42bf2d121ccdd52d8,
+    type: 3}
   firePoint: {fileID: 0}
   bulletForce: 20
-  bulletLifeTime: 0
+  bulletLifeTime: 2
