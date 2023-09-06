@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 250
-  physicMaterial: 0
+  physicMaterial: 2
   onDestroyFunction: {fileID: 427778308}
 --- !u!65 &427778305
 BoxCollider:
@@ -6842,7 +6842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
-  physicMaterial: 0
+  physicMaterial: 2
   onDestroyFunction: {fileID: 0}
 --- !u!65 &1557580665
 BoxCollider:
@@ -7807,7 +7807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  physicMaterial: 0
+  physicMaterial: 1
   onDestroyFunction: {fileID: 1832218082}
 --- !u!65 &1832218079
 BoxCollider:
