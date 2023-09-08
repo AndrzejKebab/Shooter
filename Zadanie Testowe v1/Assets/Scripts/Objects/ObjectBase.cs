@@ -51,12 +51,7 @@ public class ObjectBase : MonoBehaviour
 
 		if (health <= 0)
 		{
-			OnObjectDestroy();
+			onDestroyFunction.Destroy();
 		}
-	}
-	
-	private void OnObjectDestroy()
-	{
-		onDestroyFunction.Destroy();
 	}
 }

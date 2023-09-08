@@ -20,7 +20,7 @@ MonoBehaviour:
   WeaponFireSound: {fileID: 8300000, guid: a23537b40b3025c44ba9aada7de398c7, type: 3}
   WeaponEmptyFireSound: {fileID: 8300000, guid: 557d6f408ae7f504fb33f7b74c881aab,
     type: 3}
-  WeaponReload: {fileID: 8300000, guid: 557d6f408ae7f504fb33f7b74c881aab, type: 3}
+  WeaponReload: {fileID: 8300000, guid: 1ea7903f82a36cf4cbd6883fee77886f, type: 3}
   WeaponEmptyReload: {fileID: 8300000, guid: fdecc3d7151ce62419c5747f3b48cfc2, type: 3}
   BulletPrefab: {fileID: 4240213031997535971, guid: c116f241a1d284f42bf2d121ccdd52d8,
     type: 3}

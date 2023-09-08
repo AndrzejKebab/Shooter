@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4773772882100692074}
   m_Layer: 6
   m_Name: BulletFix
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,7 +43,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4240213031997535971}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.02
   m_Height: 0.3
@@ -77,12 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5766790146db70746b0536979e51a177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletHit:
-  - {fileID: 8300000, guid: 2beb9102664acd24997bef4c701e6c96, type: 3}
-  - {fileID: 8300000, guid: ba308864b6f892c44ae9c0d867b7fbe8, type: 3}
-  - {fileID: 8300000, guid: bed2e17f6a6de5b4f930cd855d293f62, type: 3}
-  - {fileID: 8300000, guid: 255f3bd4c3da81e4b88d6ba5ed727e0d, type: 3}
-  BulletAudioSource: {fileID: 0}
 --- !u!1001 &7044882292623623685
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,6 +88,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 7.62x51_Bullet_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440924034055739044, guid: 43e328bae3536a84eaca0891841b6f1d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 8949704625245647606, guid: 43e328bae3536a84eaca0891841b6f1d,
         type: 3}

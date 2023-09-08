@@ -23,11 +23,13 @@ public class Gun : MonoBehaviour
 		}
 	}
 
+	//Function exposed for weapon manager.
 	public void OnWeaponSelected()
 	{
 		weaponBase.UpdateWeaponText();
 	}
 
+	//Function exposed for animator event.
 	public void ReloadEnd()
 	{
 		weaponBase.SetAmmo();

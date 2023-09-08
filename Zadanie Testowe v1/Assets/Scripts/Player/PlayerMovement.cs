@@ -7,9 +7,12 @@ public class PlayerMovement : MonoBehaviour
 
 	[Header("Player Movement")]
 	[Tooltip("Speed with what player will move.")]
-	[SerializeField] private short movementSpeed = 7;
+	[SerializeField] private byte movementSpeed = 7;
+	[Tooltip("How fast player will run.")] 
+	[SerializeField] private byte runSpeed = 12;
 	[Tooltip("How fast player will look around.")]
 	[SerializeField] private short mouseSensivity = 10;
+	[ShowOnly] [SerializeField] private bool isPlayerRunning = false;
 	private Vector2 mousePos;
 	private Vector2 movement;
 	private Vector3 velocity;
@@ -21,10 +24,10 @@ public class PlayerMovement : MonoBehaviour
 	[Tooltip("Time required to pass before being able to jump again.")]
 	[SerializeField] private float jumpTimeout = 0.1f;
 	private float jumpTimeoutDelta;
-
+	
 	[Header("Player Grounded")]
 	[Tooltip("If the character is grounded or not.")]
-	[SerializeField] private bool grounded = true;
+	[ShowOnly] [SerializeField] private bool grounded = true;
 	[Tooltip("Useful for rough ground")]
 	[SerializeField] private float groundedOffset = 0.75f;
 	[Tooltip("The radius of the grounded check.")]
@@ -53,8 +56,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private void Movement()
 	{
+		isPlayerRunning = Input.GetKey(KeyCode.LeftShift);
 		movement = InputManager.Instance.GetMovement();
-		velocity = ((transform.forward * movement.y) + (transform.right * movement.x)) * movementSpeed;
+		byte _moveSpeed = (isPlayerRunning) ? runSpeed : movementSpeed;
+		velocity = ((transform.forward * movement.y) + (transform.right * movement.x)) * _moveSpeed;
 		transform.position += velocity * Time.deltaTime;
 	}
 	

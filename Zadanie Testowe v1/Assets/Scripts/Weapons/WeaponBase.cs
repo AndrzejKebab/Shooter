@@ -75,7 +75,12 @@ public class WeaponBase : ScriptableObject
 		{
 			firePoint.LookAt(firePoint.position + firePoint.forward);
 		}
-
+		
+		if(timeBtwShoots > 0)
+		{
+			timeBtwShoots -= Time.deltaTime;
+		}
+		
 		if(InputManager.Instance.GetFirePressed()) Fire();
 	}
 
@@ -111,27 +116,24 @@ public class WeaponBase : ScriptableObject
 			 weaponSoundSorce.PlayOneShot(WeaponEmptyFireSound, 0.30f);
 			 timeBtwShoots = 1 / FireRate;
 		}
-		else
-		{
-			timeBtwShoots -= Time.deltaTime;
-		}
 	}
 
 	public void Reload()
 	{
 		if (bulletsInMagazine == MagazineSize) return;
 
-		isReloading = true;
-		if(bulletsInMagazine > 0)
+		
+		if(bulletsInMagazine > 0 && !isReloading)
 		{
 			animator.Play("Reload");
-			weaponSoundSorce.PlayOneShot(WeaponReload);
+			weaponSoundSorce.PlayOneShot(WeaponReload, 0.5f);
 		}
-		else if(bulletsInMagazine == 0)
+		else if(bulletsInMagazine == 0 && !isReloading)
 		{
 			animator.Play("ReloadNoAmmo");
-			weaponSoundSorce.PlayOneShot(WeaponEmptyReload);
+			weaponSoundSorce.PlayOneShot(WeaponEmptyReload, 0.5f);
 		}
+		isReloading = true;
 	}
 
 	public void SetAmmo()
