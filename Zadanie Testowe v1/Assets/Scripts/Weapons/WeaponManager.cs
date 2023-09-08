@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
@@ -10,15 +8,13 @@ public class WeaponManager : MonoBehaviour
 	[SerializeField] private float weaponSwitchTime = 0.12f;
 	private float lastWeaponSwitchTime = 0;
 
-	// Start is called before the first frame update
-	void Start()
+	public void Start()
 	{
 		SetWeapon();
 		SelectWeapon(currentWeapon);
 	}
 
-	// Update is called once per frame
-	void Update()
+	public void Update()
 	{
 		byte _previousWeapon = currentWeapon;
 
@@ -38,7 +34,7 @@ public class WeaponManager : MonoBehaviour
 		lastWeaponSwitchTime += Time.deltaTime;
 	}
 
-	public void SetWeapon()
+	private void SetWeapon()
 	{
 		weapons = new GameObject[transform.childCount];
 
@@ -48,7 +44,7 @@ public class WeaponManager : MonoBehaviour
 		}
 	}
 
-	public void SelectWeapon(byte indexWeapon)
+	private void SelectWeapon(byte indexWeapon)
 	{
 		for (byte i = 0; i < weapons.Length; i++)
 		{

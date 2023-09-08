@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ObjectBase : MonoBehaviour
 {
 	private Transform _camera;
-	private Transform _statsCanvas;
+	private Transform statsCanvas;
 	private short health;
 	private Slider healthBar;
 	private TextMeshProUGUI healthBarText;
@@ -16,15 +16,15 @@ public class ObjectBase : MonoBehaviour
 	[SerializeField] private short maxHealth;
 	[Tooltip("Material that object is made from.")]
 	[SerializeField] private PhysicMaterial physicMaterial;
-	public PhysicMaterial PhysicMaterial { get { return physicMaterial; } private set { } }
+	public PhysicMaterial PhysicMaterial { get { return physicMaterial; } }
 	[Tooltip("Function that will happen when object is destroyed.")]
 	[SerializeField] private OnDestroyFunction onDestroyFunction;
 
 	// Start is called before the first frame update
-	void Start()
+	public void Start()
 	{
 		_camera = Camera.main.transform;
-		_statsCanvas = GameObject.Find($"{gameObject.name}/Canvas").GetComponent<Transform>();
+		statsCanvas = GameObject.Find($"{gameObject.name}/Canvas").GetComponent<Transform>();
 		health = maxHealth;
 		healthBar = GetComponentInChildren<Slider>();
 		healthBar.maxValue = maxHealth;
@@ -36,16 +36,11 @@ public class ObjectBase : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	public void Update()
 	{
-		_statsCanvas.transform.LookAt(_statsCanvas.position + _camera.rotation * Vector3.forward, _camera.rotation * Vector3.up );
+		statsCanvas.transform.LookAt(statsCanvas.position + _camera.rotation * Vector3.forward, _camera.rotation * Vector3.up );
 	}
-
-	public void OnObjectDestroy()
-	{
-		onDestroyFunction.Destroy();
-	}
-
+    
 	public void TakeDamage(byte damage)
 	{
 		if (health <= 0) return;
@@ -58,5 +53,10 @@ public class ObjectBase : MonoBehaviour
 		{
 			OnObjectDestroy();
 		}
+	}
+	
+	private void OnObjectDestroy()
+	{
+		onDestroyFunction.Destroy();
 	}
 }

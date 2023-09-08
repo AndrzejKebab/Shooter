@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		weaponBase.Setup(firePoint, animator, gameObject.name);
+		weaponBase.Setup(firePoint, animator, gameObject.name, GetComponent<AudioSource>());
 	}
 
 	// Update is called once per frame
@@ -36,6 +36,6 @@ public class Gun : MonoBehaviour
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawLine(firePoint.transform.position, weaponBase.hit.point);
+		Gizmos.DrawLine(firePoint.transform.position, weaponBase.Hit.point);
 	}
 }

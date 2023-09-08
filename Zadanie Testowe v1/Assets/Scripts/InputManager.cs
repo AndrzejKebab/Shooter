@@ -9,16 +9,16 @@ public class InputManager : MonoBehaviour
 	private Vector2 movement;
 	private bool jumpPressed = false;
 
-	public static InputManager instance { get; private set; }
+	public static InputManager Instance { get; private set; }
 
 	private void Awake()
 	{
-		if (instance != null)
+		if (Instance != null)
 		{
 			Debug.Log("More than one Input Manager in scene.");
 			return;
 		}
-		instance = this;
+		Instance = this;
 	}
 
 	public void Move(InputAction.CallbackContext ctx)
