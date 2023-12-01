@@ -1,4 +1,4 @@
-# Zadanie Testowe
+# Shooter
 
 ## Controls
 WASD - Move <br>
